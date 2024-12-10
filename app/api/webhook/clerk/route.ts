@@ -59,7 +59,7 @@ export const POST = async (request: Request) => {
         return NextResponse.json({ message: err }, { status: 400 });
     }
 
-    const eventType: EventType = evnt?.type!;
+    const eventType: EventType = evnt?.type ?? "default-event"; // Provide a fallback value
 
     // Listen organization creation event
     if (eventType === "organization.created") {
@@ -68,9 +68,8 @@ export const POST = async (request: Request) => {
         const { id, name, slug, logo_url, image_url, created_by } = evnt?.data ?? {};
 
         try {
-            // @ts-ignore
             await createCommunity(
-                // @ts-ignore
+                // @ts-expect-error: id is not defined
                 id,
                 name,
                 slug,
@@ -119,7 +118,7 @@ export const POST = async (request: Request) => {
             const { organization, public_user_data } = evnt?.data;
             console.log("created", evnt?.data);
 
-            // @ts-ignore
+            // @ts-expect-error: id is not defined
             await addMemberToCommunity(organization.id, public_user_data.user_id);
 
             return NextResponse.json(
@@ -144,7 +143,7 @@ export const POST = async (request: Request) => {
             const { organization, public_user_data } = evnt?.data;
             console.log("removed", evnt?.data);
 
-            // @ts-ignore
+            // @ts-expect-error: id is not defined
             await removeUserFromCommunity(public_user_data.user_id, organization.id);
 
             return NextResponse.json({ message: "Member removed" }, { status: 201 });
@@ -166,7 +165,7 @@ export const POST = async (request: Request) => {
             const { id, logo_url, name, slug } = evnt?.data;
             console.log("updated", evnt?.data);
 
-            // @ts-ignore
+            // @ts-expect-error: id is not defined
             await updateCommunityInfo(id, name, slug, logo_url);
 
             return NextResponse.json({ message: "Member removed" }, { status: 201 });
@@ -188,7 +187,7 @@ export const POST = async (request: Request) => {
             const { id } = evnt?.data;
             console.log("deleted", evnt?.data);
 
-            // @ts-ignore
+            // @ts-expect-error: id is not defined
             await deleteCommunity(id);
 
             return NextResponse.json(
