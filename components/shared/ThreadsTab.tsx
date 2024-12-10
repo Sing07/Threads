@@ -13,7 +13,7 @@ export default async function ThreadsTab({
     accountType: string;
 }) {
     // TODO: Fetch profile threads
-    let result = await fetchUserPosts(accountId);
+    const result = await fetchUserPosts(accountId);
 
     if (!result) redirect("/");
 
