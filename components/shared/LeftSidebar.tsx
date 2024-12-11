@@ -13,7 +13,7 @@ export default function LeftSidebar() {
   const pathname = usePathname();
 
   const { userId, isSignedIn } = useAuth();
-  console.log(userId, isSignedIn);
+  console.log(userId, isSignedIn, "16");
 
   return (
       <section className="custom-scrollbar leftsidebar">
