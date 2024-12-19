@@ -25,6 +25,7 @@ interface Props {
 }
 
 function PostThread({ userId }: Props) {
+    console.log("UserInfo-createThread", typeof(userId), "line 28");
     const router = useRouter();
     const pathname = usePathname();
 
